@@ -14,7 +14,409 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      export_sessions: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          file_url: string | null
+          id: string
+          live_match_id: string | null
+          profile_id: string
+          row_count: number | null
+          status: string
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          file_url?: string | null
+          id?: string
+          live_match_id?: string | null
+          profile_id: string
+          row_count?: number | null
+          status?: string
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          file_url?: string | null
+          id?: string
+          live_match_id?: string | null
+          profile_id?: string
+          row_count?: number | null
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "export_sessions_live_match_id_fkey"
+            columns: ["live_match_id"]
+            isOneToOne: false
+            referencedRelation: "live_matches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "export_sessions_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      live_matches: {
+        Row: {
+          created_at: string
+          game_id: number
+          game_length: number | null
+          game_mode: string | null
+          game_queue_config_id: number | null
+          game_start_time: number | null
+          game_type: string | null
+          id: string
+          last_updated_at: string
+          platform_id: string
+          raw_data: Json
+        }
+        Insert: {
+          created_at?: string
+          game_id: number
+          game_length?: number | null
+          game_mode?: string | null
+          game_queue_config_id?: number | null
+          game_start_time?: number | null
+          game_type?: string | null
+          id?: string
+          last_updated_at?: string
+          platform_id: string
+          raw_data: Json
+        }
+        Update: {
+          created_at?: string
+          game_id?: number
+          game_length?: number | null
+          game_mode?: string | null
+          game_queue_config_id?: number | null
+          game_start_time?: number | null
+          game_type?: string | null
+          id?: string
+          last_updated_at?: string
+          platform_id?: string
+          raw_data?: Json
+        }
+        Relationships: []
+      }
+      match_events: {
+        Row: {
+          assisting_puuids: Json | null
+          created_at: string
+          event_type: string
+          extra_data: Json | null
+          id: string
+          killer_puuid: string | null
+          live_match_id: string
+          position_x: number | null
+          position_y: number | null
+          timestamp_ms: number
+          victim_puuid: string | null
+        }
+        Insert: {
+          assisting_puuids?: Json | null
+          created_at?: string
+          event_type: string
+          extra_data?: Json | null
+          id?: string
+          killer_puuid?: string | null
+          live_match_id: string
+          position_x?: number | null
+          position_y?: number | null
+          timestamp_ms: number
+          victim_puuid?: string | null
+        }
+        Update: {
+          assisting_puuids?: Json | null
+          created_at?: string
+          event_type?: string
+          extra_data?: Json | null
+          id?: string
+          killer_puuid?: string | null
+          live_match_id?: string
+          position_x?: number | null
+          position_y?: number | null
+          timestamp_ms?: number
+          victim_puuid?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "match_events_live_match_id_fkey"
+            columns: ["live_match_id"]
+            isOneToOne: false
+            referencedRelation: "live_matches"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      match_history_cache: {
+        Row: {
+          assists: number | null
+          cached_at: string
+          champion_id: number | null
+          champion_name: string | null
+          cs: number | null
+          deaths: number | null
+          game_duration: number | null
+          game_mode: string | null
+          gold_earned: number | null
+          id: string
+          items: Json | null
+          kills: number | null
+          match_id: string
+          played_at: string | null
+          puuid: string
+          raw_data: Json | null
+          region: string
+          vision_score: number | null
+          win: boolean | null
+        }
+        Insert: {
+          assists?: number | null
+          cached_at?: string
+          champion_id?: number | null
+          champion_name?: string | null
+          cs?: number | null
+          deaths?: number | null
+          game_duration?: number | null
+          game_mode?: string | null
+          gold_earned?: number | null
+          id?: string
+          items?: Json | null
+          kills?: number | null
+          match_id: string
+          played_at?: string | null
+          puuid: string
+          raw_data?: Json | null
+          region?: string
+          vision_score?: number | null
+          win?: boolean | null
+        }
+        Update: {
+          assists?: number | null
+          cached_at?: string
+          champion_id?: number | null
+          champion_name?: string | null
+          cs?: number | null
+          deaths?: number | null
+          game_duration?: number | null
+          game_mode?: string | null
+          gold_earned?: number | null
+          id?: string
+          items?: Json | null
+          kills?: number | null
+          match_id?: string
+          played_at?: string | null
+          puuid?: string
+          raw_data?: Json | null
+          region?: string
+          vision_score?: number | null
+          win?: boolean | null
+        }
+        Relationships: []
+      }
+      match_participants: {
+        Row: {
+          assists: number
+          champion_id: number
+          champion_name: string | null
+          created_at: string
+          cs: number
+          deaths: number
+          gold_earned: number
+          id: string
+          is_bot: boolean
+          items: Json
+          kills: number
+          live_match_id: string
+          position: string | null
+          puuid: string
+          runes: Json
+          snapshot_at: string
+          spell1_id: number | null
+          spell2_id: number | null
+          summoner_name: string
+          team_id: number
+          vision_score: number
+        }
+        Insert: {
+          assists?: number
+          champion_id: number
+          champion_name?: string | null
+          created_at?: string
+          cs?: number
+          deaths?: number
+          gold_earned?: number
+          id?: string
+          is_bot?: boolean
+          items?: Json
+          kills?: number
+          live_match_id: string
+          position?: string | null
+          puuid: string
+          runes?: Json
+          snapshot_at?: string
+          spell1_id?: number | null
+          spell2_id?: number | null
+          summoner_name: string
+          team_id: number
+          vision_score?: number
+        }
+        Update: {
+          assists?: number
+          champion_id?: number
+          champion_name?: string | null
+          created_at?: string
+          cs?: number
+          deaths?: number
+          gold_earned?: number
+          id?: string
+          is_bot?: boolean
+          items?: Json
+          kills?: number
+          live_match_id?: string
+          position?: string | null
+          puuid?: string
+          runes?: Json
+          snapshot_at?: string
+          spell1_id?: number | null
+          spell2_id?: number | null
+          summoner_name?: string
+          team_id?: number
+          vision_score?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "match_participants_live_match_id_fkey"
+            columns: ["live_match_id"]
+            isOneToOne: false
+            referencedRelation: "live_matches"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          id: string
+          preferred_region: string
+          riot_puuid: string | null
+          riot_summoner_id: string | null
+          theme: string
+          updated_at: string
+          username: string
+        }
+        Insert: {
+          created_at?: string
+          id: string
+          preferred_region?: string
+          riot_puuid?: string | null
+          riot_summoner_id?: string | null
+          theme?: string
+          updated_at?: string
+          username: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          preferred_region?: string
+          riot_puuid?: string | null
+          riot_summoner_id?: string | null
+          theme?: string
+          updated_at?: string
+          username?: string
+        }
+        Relationships: []
+      }
+      summoners: {
+        Row: {
+          account_id: string | null
+          created_at: string
+          id: string
+          last_fetched_at: string
+          profile_icon_id: number | null
+          puuid: string
+          region: string
+          summoner_id: string
+          summoner_level: number | null
+          summoner_name: string
+        }
+        Insert: {
+          account_id?: string | null
+          created_at?: string
+          id?: string
+          last_fetched_at?: string
+          profile_icon_id?: number | null
+          puuid: string
+          region?: string
+          summoner_id: string
+          summoner_level?: number | null
+          summoner_name: string
+        }
+        Update: {
+          account_id?: string | null
+          created_at?: string
+          id?: string
+          last_fetched_at?: string
+          profile_icon_id?: number | null
+          puuid?: string
+          region?: string
+          summoner_id?: string
+          summoner_level?: number | null
+          summoner_name?: string
+        }
+        Relationships: []
+      }
+      watched_summoners: {
+        Row: {
+          created_at: string
+          id: string
+          nickname: string | null
+          notify_baron: boolean
+          notify_kills: boolean
+          profile_id: string
+          summoner_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          nickname?: string | null
+          notify_baron?: boolean
+          notify_kills?: boolean
+          profile_id: string
+          summoner_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          nickname?: string | null
+          notify_baron?: boolean
+          notify_kills?: boolean
+          profile_id?: string
+          summoner_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "watched_summoners_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "watched_summoners_summoner_id_fkey"
+            columns: ["summoner_id"]
+            isOneToOne: false
+            referencedRelation: "summoners"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
